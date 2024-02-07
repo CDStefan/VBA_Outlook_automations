@@ -5,6 +5,7 @@ Option Explicit
 
 ' Trebuie activate Macro in Outlook
 ' File > Options > Trust Center > Trust Center Settings... > Macro Settings
+' Enable all macros (not recommended; potentially dangerous code can run)
 ' -------------------------------------------------
 
 ' Trebuie modificata variabila FolderPath de mai jod cu emailul corespunzator
@@ -50,6 +51,18 @@ Public Sub ProcessNewMail(ByVal Item As MailItem)
     Dim TotalAttachmentSize As Long
     Dim FolderPath As String
     Dim RejectionFolder As MAPIFolder
+
+    ' ##################################################################
+    ' Modifica emailul
+    ' Specify the folder path for "Rejection" folder (change as needed)
+    FolderPath = "stefan.caravelea@just.ro\Inbox\Respinse" ' Adjust based on your actual folder path
+    
+    ' ###################################################################
+    
+    ' Find the Rejection folder
+    Set RejectionFolder = GetFolder(FolderPath)
+    Debug.Print RejectionFolder
+
 
     ' Mesajul de respingere pentru linkuri in email
     Dim reply_body1 As String
@@ -147,19 +160,8 @@ Public Sub ProcessNewMail(ByVal Item As MailItem)
         Next Atmt
     End If
 
-    ' ##################################################################
-    ' Modifica emailul
-    ' Specify the folder path for "Rejection" folder (change as needed)
-    FolderPath = "stefan.caravelea@just.ro\Inbox\Respinse" ' Adjust based on your actual folder path
-    
-    ' ###################################################################
-    
-    ' Find the Rejection folder
-    Set RejectionFolder = GetFolder(FolderPath)
-    Debug.Print RejectionFolder
-
     ' Check for links, unacceptable attachments, and total attachment size
-    If InStr(Item.body, "http://") > 0 Or InStr(Item.body, "https://") > 0 Then
+    If InStr(Item.Body, "http://") > 0 Or InStr(Item.Body, "https://") > 0 Then
             
         
         ' Call a function or perform an action to reply and move the email
@@ -337,11 +339,26 @@ Sub SendRejectionReplyHTML()
     Dim objSelection As Selection
     Dim isMailItemOpen As Boolean
     Dim response As VbMsgBoxResult
+    Dim FolderPath As String
+    Dim RejectionFolder As MAPIFolder
     
     isMailItemOpen = False
     
+    ' ##################################################################
+    ' Modifica emailul
+    ' Specify the folder path for "Rejection" folder (change as needed)
+    FolderPath = "stefan.caravelea@just.ro\Inbox\Respinse" ' Adjust based on your actual folder path
+    
+    ' ###################################################################
+    
+    ' Find the Rejection folder
+    Set RejectionFolder = GetFolder(FolderPath)
+    Debug.Print RejectionFolder
+    
+    
         ' Mesajul de respingere de la inregistrare
     Dim reply_body5 As String
+    Dim reply_subject5 As String
      reply_body5 = "<p>Buna ziua,</p>" & _
     "<p>Mesajul dumneavoastra a fost respins de la inregistrare din cauza neindeplinirii conditiilor tehnice pentru inregistrare.</p>" & _
     "<p>Au fost identificate una din urmatoarele nereguli: d) Rezolutia maxima a atasamentelor este 200 dpi; e) Fundalul paginilor scanate trebuie sa fie alb; f) Atasamentele trebuie sa cuprinda doar text lizibil, fara elemente grafice mari (>20% din suprafata paginii).</p>" & _
@@ -364,7 +381,9 @@ Sub SendRejectionReplyHTML()
     "<p>Tribunalul Timis, Compartimentul Registratura," & _
     "Piata Tepes Voda nr. 2, Timisoara, Timis, 300055, " & _
     "Email: <a href=""mailto:tr-timis-reg@just.ro"">tr-timis-reg@just.ro</a></p>"
-
+    
+    reply_subject5 = "Auto Reply: Email-ul dumneavoastra a fost respins de la inregistrare. Nu dati reply. "
+    
     
     
     ' Check if there's an open item
@@ -396,13 +415,9 @@ Sub SendRejectionReplyHTML()
  
         If response = vbYes Then
             ' User confirmed, proceed with creating and sending the reply
-            ' Create a reply email
-            Set objReply = objMail.Reply
-            With objReply
-                .HTMLBody = reply_body5 & .HTMLBody
-                .Subject = "Auto Reply: Email-ul dumneavoastra a fost respins de la inregistrare. Nu dati reply. " & objMail.Subject
-                .Send
-            End With
+            ' Call the reply and move function
+            ReplyAndMove objMail, reply_body5, reply_subject5, RejectionFolder
+
         Else
             ' User declined, do not send the reply
             ' MsgBox "Operatiunea de respingere a fost anulata", vbInformation
@@ -411,5 +426,7 @@ Sub SendRejectionReplyHTML()
         MsgBox "Please select or open an email to use this feature.", vbExclamation
     End If
 End Sub
+
+
 
 
