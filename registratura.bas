@@ -71,7 +71,7 @@ Public Sub ProcessNewMail(ByVal Item As MailItem)
 
     
     ' VVVVVVVVV
-    FolderPath = "caraveleastefan53@gmail.com\Inbox\Respinse" ' Adjust based on your actual folder path
+    FolderPath = "stefan.caravelea@just.ro\Inbox\Respinse" ' Adjust based on your actual folder path
         
     ' VVVVVVVVVVVVVVVVVVVVVV
     TemplatePathLinkInEmail = "C:\Users\scaravelea\OneDrive\Office_Templates\OutlookTemplates\RespingeLinkInEmail.oft" ' Specify the actual path to your template
@@ -220,7 +220,7 @@ Sub SendConfirmationReplyHTML()
     ' Specify the folder path for "Rejection" folder (change as needed)
     
     ' VVVVVVVVVV
-    FolderPath = "caraveleastefan53@gmail.com\Inbox\Confirmate" ' Adjust based on your actual folder path
+    FolderPath = "stefa.caravelea@just.ro\Inbox\Confirmate" ' Adjust based on your actual folder path
     
     ' VVVVVVVVVV
     TemplatePath = "C:\Users\scaravelea\OneDrive\Office_Templates\OutlookTemplates\Confirmare.oft" ' Specify the actual path to your template
@@ -291,7 +291,7 @@ Sub SendRejectionReplyHTML()
     ' Specify the folder path for "Rejection" folder (change as needed)
     
     ' VVVVVVVV
-    FolderPath = "caraveleastefan53@gmail.com\Inbox\Respinse" ' Adjust based on your actual folder path
+    FolderPath = "stefan.caravelea@just.ro\Inbox\Respinse" ' Adjust based on your actual folder path
          
     ' VVVVVVVVV
     TemplatePath = "C:\Users\scaravelea\OneDrive\Office_Templates\OutlookTemplates\RespingeAtasamenteNeconforme.oft" ' Specify the actual path to your template
@@ -360,7 +360,7 @@ Sub SendRejectionReplyHTMLParticipanti()
     ' Specify the folder path for "Rejection" folder (change as needed)
     
     ' VVVVVVVV
-    FolderPath = "caraveleastefan53@gmail.com\Inbox\Respinse" ' Adjust based on your actual folder path
+    FolderPath = "stefan.caravelea@just.ro\Inbox\Respinse" ' Adjust based on your actual folder path
          
     ' VVVVVVVVV
     TemplatePath = "C:\Users\scaravelea\OneDrive\Office_Templates\OutlookTemplates\RespingeParticipanti.oft" ' Specify the actual path to your template
